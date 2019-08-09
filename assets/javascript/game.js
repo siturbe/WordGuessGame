@@ -34,7 +34,7 @@ function PlayGame(){
 
     console.log(blanksAndSuccesses)
 
-    //Need to get guesses lef
+    //Need to get guesses left
     document.getElementById("guessesRemaining").innerHTML = "Number of Guesses Remaining: " + guessesRemaining;
 
     //print blanks
