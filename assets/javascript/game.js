@@ -1,9 +1,9 @@
 let wins=0;
 
-const animalChoices = ['caracal', 'narwal','ocelot','capybara','gazelle','hyena','koala','platypus','baboon','chimpanzee','cheetah','wolf','badger','camel','mongoose','lemur','cobra','civet','leopard'];
+const animalChoices = ['caracal', 'narwal','ocelot','capybara','gazelle','hyena','koala','platypus','baboon','chimpanzee','cheetah','wolf','badger','camel','mongoose','lemur','cobra','civet','leopard','orangutan','mouse','crocidile','jackal','wombat','kangaroo','bison','antelope','zebra','bonobo'];
 let selectedWord = "";
 let lettersInWord=[];
-let numBlanks=0;
+let numberOfBlanks=0;
 let blanksAndSuccesses=[];
 let wrongGuesses=[];
     
@@ -21,10 +21,10 @@ function PlayGame(){
     //Now breaking word into individual letters
     lettersInWord = selectedWord.split("");
 
-    numBlanks=lettersInWord.length;
+    numberOfBlanks=lettersInWord.length;
     console.log(selectedWord);
 
-    for (let i=0;i<numBlanks; i++){
+    for (let i=0;i<numberOfBlanks; i++){
         if (lettersInWord.toString() === blanksAndSuccesses.toString().replace("*", " ")) {
             blanksAndSuccesses.push("*");
         } else {
@@ -47,14 +47,14 @@ function PlayGame(){
 //now check letters
 function checkLetters(letter){
     let letterInWord = false;
-    for (var i=0; i< numBlanks; i++){
+    for (let i=0; i< numberOfBlanks; i++){
         if (selectedWord[i]===letter){
             letterInWord=true;
         }
     }
     //now figure out where the letter goes
     if(letterInWord){
-        for(let i=0; i<numBlanks; i++){
+        for(let i=0; i<numberOfBlanks; i++){
             if(selectedWord[i] === letter){
                 blanksAndSuccesses[i] = letter; //set space to equal correct letter when a match
             }
@@ -69,7 +69,7 @@ function checkLetters(letter){
 
 function roundComplete() {
     console.log("win count: " + wins + "  Guesses Remaining: " + guessesRemaining);
-
+    console.log(blanksAndSuccesses);
     //output to html
     document.getElementById("guessesRemaining").innerHTML = "Number of Guesses Remaining: " + guessesRemaining;
     document.getElementById("correctGuesses").innerHTML = blanksAndSuccesses.join(" ");
@@ -77,9 +77,13 @@ function roundComplete() {
 
     if(lettersInWord.toString()===blanksAndSuccesses.toString()){
         wins++;
-        alert("You guessed the animal!");
+        document.getElementById("correctGuesses").innerHTML = blanksAndSuccesses.join(" ");
         document.getElementById("wins").innerHTML = "Wins: " + wins;
-        PlayGame();
+        setTimeout(function(){
+            alert("You guessed the animal!");
+            PlayGame();
+        },10)
+    
     }
 
     else if (guessesRemaining ===0){
